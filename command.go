@@ -32,9 +32,10 @@ func NewCmdFlags() *CmdFlags {
 func (cf *CmdFlags) Execute(todos *Todos) {
 	switch {
 	case cf.List:
-		todos.print()
+
 	case cf.Add != "":
 		todos.add(cf.Add)
+
 	case cf.Edit != "":
 		parts := strings.SplitN(cf.Edit, ":", 2)
 		if len(parts) != 2 {
@@ -46,12 +47,15 @@ func (cf *CmdFlags) Execute(todos *Todos) {
 			os.Exit(1)
 		}
 		todos.edit(index, parts[1])
+
 	case cf.Toggle != -1:
 		todos.toggle(cf.Toggle)
+
 	case cf.Del != -1:
 		todos.delete(cf.Del)
+
 	default:
 		fmt.Println("Invalid command")
 	}
-
+	todos.print()
 }
